@@ -1,13 +1,17 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../Components/Footer";
 import Navbar from "../Components/Navbar";
 
 const Main = () => {
+    const location = useLocation()
+    // console.log(location);
+    const hideHeader = location.pathname.includes('Login') ||
+    location.pathname.includes('signup')
     return (
         <div>
-            <Navbar></Navbar>
+           { hideHeader|| <Navbar></Navbar>}
             <Outlet></Outlet>
-            <Footer></Footer>
+            { hideHeader || <Footer></Footer>}
         </div>
     );
 };

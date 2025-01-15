@@ -8,13 +8,19 @@ import 'react-tabs/style/react-tabs.css';
 import useMenu from '../hooks/useMenu';
 import OrderTab from '../Components/OrderTab';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const Order = () => {
+    <Helmet>
+        <title>
+           Order Food
+        </title>
+    </Helmet>
     const categories = ['desserts' ,   'pizzas', 'soups' , 'salads']
     const {category} = useParams()
-    console.log(category);
+    // console.log(category);
     const initialIndex = categories.indexOf(category)
-    console.log(initialIndex);
+    // console.log(initialIndex);
     const [tabIndex, setTabIndex] = useState(initialIndex);
     const [menu] = useMenu()
    
