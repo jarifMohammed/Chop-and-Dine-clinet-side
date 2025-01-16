@@ -1,23 +1,39 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../Providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-    const {createUser} = useContext(AuthContext)
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate = useNavigate()
+    const {createUser, updateUserProfile} = useContext(AuthContext)
+  const { register, handleSubmit,reset, formState: { errors } } = useForm();
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
   const onSubmit = (data) => {
     // You can handle the signup logic here, e.g., Firebase auth
-    setSuccess("User signed up successfully!");
-    // console.log(data);
     createUser(data.email, data.password)
-    .then(result => {
-        const loggedUser = result.user
+      .then((result) => {
+        const loggedUser = result.user;
         console.log(loggedUser);
-    })
+  
+        // Update the user's profile
+        updateUserProfile(data.name, data.photoURL)
+          .then(() => {
+            console.log("User profile info updated");
+            setSuccess("User signed up successfully!");
+            reset(); // Reset the form fields after successful submission
+          })
+          .catch((error) => {
+            console.error("Error updating profile:", error);
+          });
+      })
+      navigate('/')
+      .catch((error) => {
+        console.error("Error signing up user:", error);
+      });
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -37,6 +53,22 @@ const SignUp = () => {
             />
             {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
           </div>
+          {/* photoURL */}
+          {/* photoURL */}
+<div className="mb-4">
+  <label htmlFor="photoURL" className="block text-gray-700 font-semibold">
+    Photo URL
+  </label>
+  <input
+    type="url"
+    id="photoURL"
+    {...register("photoURL", { required: "Photo URL is required" })}
+    className="w-full px-4 py-2 border rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    placeholder="Enter the URL of your photo"
+  />
+  {errors.photoURL && <p className="text-red-500 text-sm">{errors.photoURL.message}</p>}
+</div>
+
 
           {/* Email Field */}
           <div className="mb-4">
