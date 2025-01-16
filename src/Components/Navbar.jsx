@@ -17,13 +17,63 @@ const Navbar = () => {
      
       <li><Link to="/order">Order food</Link></li>
       <li><Link to="/secret">Secret</Link></li>
-     {
-      user ? <>
-      <button onClick={handlelogOut} className="btn btn-ghost">LogOut</button>
-      </> : 
-      <> <li><Link to="/Login">Login</Link></li>
-      </>
-     }
+        {/* Cart Icon with Onbox */}
+  <li className="relative">
+    <Link to="/cart" className="flex items-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-6 w-6 text-gray-700 hover:text-blue-500"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3 3h18l-2.25 12.75a2.25 2.25 0 01-2.25 1.75H7.5a2.25 2.25 0 01-2.25-1.75L3 3z"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 21h6m-7.5-6h9"
+        />
+      </svg>
+    </Link>
+    {/* Badge */}
+    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-0.5">
+      
+    </span>
+  </li>
+      {
+  user ? (
+    <>
+      {/* Profile Image and Name */}
+      <div className="flex items-center gap-4">
+        {user.photoURL && (
+          <img
+            src={user.photoURL}
+            alt="User Profile"
+            className="w-10 h-10 rounded-full"
+          />
+        )}
+        <span className="font-semibold text-gray-700">{user.displayName}</span>
+      </div>
+
+      {/* Logout Button */}
+      <button onClick={handlelogOut} className="btn btn-ghost">
+        LogOut
+      </button>
+    </>
+  ) : (
+    <>
+      {/* Login Link */}
+      <li>
+        <Link to="/Login">Login</Link>
+      </li>
+    </>
+  )
+}
     </>
   );
 

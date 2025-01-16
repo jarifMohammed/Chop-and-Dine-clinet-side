@@ -29,6 +29,10 @@ import Secret from "../Pages/Secret";
         element:<Order></Order>
     },
     {
+      path:'order',
+      element:<Order></Order>
+  },
+    {
       path:'login',
       element:<Login></Login>
   },

@@ -5,7 +5,7 @@ import Navbar from "../Components/Navbar";
 const Main = () => {
     const location = useLocation()
     // console.log(location);
-    const hideHeader = location.pathname.includes('Login') ||
+    const hideHeader = location.pathname.includes('login') ||
     location.pathname.includes('signup')
     return (
         <div>
