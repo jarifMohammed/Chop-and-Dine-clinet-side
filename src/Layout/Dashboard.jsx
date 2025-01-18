@@ -1,5 +1,14 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { HomeIcon, ClipboardListIcon, ShoppingCartIcon, PencilAltIcon, CalendarIcon } from "@heroicons/react/outline";
+import { 
+    HomeIcon, 
+    ClipboardListIcon, 
+    ShoppingCartIcon, 
+    PencilAltIcon, 
+    CalendarIcon, 
+    MenuIcon, 
+    ShoppingBagIcon, 
+    PhoneIcon 
+} from "@heroicons/react/outline";
 
 const Dashboard = () => {
     return (
@@ -79,10 +88,71 @@ const Dashboard = () => {
                         </NavLink>
                     </li>
                 </ul>
+
+                {/* Divider */}
+                <div className="my-6 border-t "></div>
+
+                <ul className="menu space-y-4">
+                <li>
+                        <NavLink
+                            to="/"
+                            className={({ isActive }) =>
+                                `flex items-center gap-2 p-2 rounded hover:bg-orange-500 ${
+                                    isActive ? "bg-orange-600 text-white" : "text-white"
+                                }`
+                            }
+                        >
+                            <HomeIcon className="h-5 w-5" />
+                             Home
+                        </NavLink>
+                    </li>
+                    {/* Menu */}
+                    <li>
+                        <NavLink
+                            to="/order/salad"
+                            className={({ isActive }) =>
+                                `flex items-center gap-2 p-2 rounded hover:bg-orange-500 ${
+                                    isActive ? "bg-orange-600 text-white" : "text-white"
+                                }`
+                            }
+                        >
+                            <MenuIcon className="h-5 w-5" />
+                            Menu
+                        </NavLink>
+                    </li>
+                    {/* Shop */}
+                    <li>
+                        <NavLink
+                            to="/"
+                            className={({ isActive }) =>
+                                `flex items-center gap-2 p-2 rounded hover:bg-orange-500 ${
+                                    isActive ? "bg-orange-600 text-white" : "text-white"
+                                }`
+                            }
+                        >
+                            <ShoppingBagIcon className="h-5 w-5" />
+                            Shop
+                        </NavLink>
+                    </li>
+                    {/* Contact */}
+                    <li>
+                        <NavLink
+                            to="/"
+                            className={({ isActive }) =>
+                                `flex items-center gap-2 p-2 rounded hover:bg-orange-500 ${
+                                    isActive ? "bg-orange-600 text-white" : "text-white"
+                                }`
+                            }
+                        >
+                            <PhoneIcon className="h-5 w-5" />
+                            Contact
+                        </NavLink>
+                    </li>
+                </ul>
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 bg-gray-100 p-6">
+            <div className="flex-1 p-8 bg-gray-100 p-6">
                 <Outlet />
             </div>
         </div>
