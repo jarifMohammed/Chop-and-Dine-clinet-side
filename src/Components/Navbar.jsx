@@ -2,9 +2,11 @@ import { useContext } from "react";
 
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
+import useCart from "../hooks/useCart";
 
 const Navbar = () => {
   const {user , logOut} = useContext(AuthContext)
+  const [cart] =useCart()
   const handlelogOut = () => {
     logOut()
     .then(()=>{})
@@ -19,7 +21,7 @@ const Navbar = () => {
       <li><Link to="/secret">Secret</Link></li>
         {/* Cart Icon with Onbox */}
   <li className="relative">
-    <Link to="/cart" className="flex items-center">
+    <Link to="/dashboard/cart" className="flex items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6 text-gray-700 hover:text-blue-500"
@@ -42,7 +44,7 @@ const Navbar = () => {
     </Link>
     {/* Badge */}
     <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-0.5">
-      
+      {cart.length}
     </span>
   </li>
       {

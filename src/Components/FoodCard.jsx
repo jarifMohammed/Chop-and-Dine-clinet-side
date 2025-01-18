@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useAxios from "../hooks/useAxios";
+import useCart from "../hooks/useCart";
 
 
 
@@ -9,6 +10,7 @@ const FoodCard = ({item}) => {
   const navigate = useNavigate()
   const {user } = useAuth()
   const axiosHook = useAxios()
+  const [ , refetch] = useCart()
   const handleAddtocart =food => {
 
    if(user && user.email){
@@ -20,6 +22,7 @@ const FoodCard = ({item}) => {
       price
     }
     axiosHook.post('/carts' , cartItem)
+    refetch()
    }else{
     alert('Log in first')
     navigate('/login')
