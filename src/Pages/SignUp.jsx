@@ -2,8 +2,11 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import usepublicHook from "../hooks/usepublicHook";
+import SocialLogin from "../Components/SocialLogin";
 
 const SignUp = () => {
+  const publicHook = usepublicHook()
   const navigate = useNavigate()
     const {createUser, updateUserProfile} = useContext(AuthContext)
   const { register, handleSubmit,reset, formState: { errors } } = useForm();
@@ -16,10 +19,19 @@ const SignUp = () => {
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
+
+
+
   
         // Update the user's profile
         updateUserProfile(data.name, data.photoURL)
           .then(() => {
+            // create user entry to data base
+            const userInfo ={
+              name: data.name,
+              email: data.email
+            }
+            publicHook.post('/users' , userInfo) 
             console.log("User profile info updated");
             setSuccess("User signed up successfully!");
             reset(); // Reset the form fields after successful submission
@@ -109,6 +121,7 @@ const SignUp = () => {
           >
             Sign Up
           </button>
+          <SocialLogin></SocialLogin>
         </form>
       </div>
     </div>

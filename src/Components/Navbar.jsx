@@ -53,7 +53,7 @@ const Navbar = () => {
       {/* Profile Image and Name */}
       <div className="flex items-center gap-4">
         {user.photoURL && (
-          <img
+          <img  referrerPolicy="no-referrer"
             src={user.photoURL}
             alt="User Profile"
             className="w-10 h-10 rounded-full"

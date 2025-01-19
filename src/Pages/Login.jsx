@@ -4,6 +4,7 @@ import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Link,  useLocation, useNavigate } from 'react-router-dom';
 import { loadCaptchaEnginge, LoadCanvasTemplate,  validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../Providers/AuthProvider';
+import SocialLogin from '../Components/SocialLogin';
 const Login = () => {
   const {signIn} =useContext(AuthContext)
 
@@ -85,6 +86,7 @@ const handleValidateCaptcha = () => {
         <div className="form-control mt-6">
           <button disabled={disabled} className="btn btn-primary">Login</button>
         </div>
+        <SocialLogin></SocialLogin>
       </form>
       <Link className='flex justify-center mb-10' to="/signup"><p><small>New Here? <span className='text-blue-300 font-extrabold'>Create and account</span>.</small></p></Link>
     </div>
