@@ -9,13 +9,14 @@ import {
     ShoppingBagIcon, 
     PhoneIcon,
     UserGroupIcon,
-    UserAddIcon,
-    ArchiveIcon
+    
 } from "@heroicons/react/outline";
+import useAdmin from "../hooks/useAdmin";
+
 
 const Dashboard = () => {
-    // Set admin value directly
-    const admin = true;
+    
+    const [isAdmin] = useAdmin()
 
     return (
         <div className="flex min-h-screen">
@@ -24,7 +25,7 @@ const Dashboard = () => {
                 <h2 className="text-2xl font-bold text-white mb-6">Dashboard</h2>
                 <ul className="menu space-y-4">
                     {/* Conditionally render menu items for users */}
-                    {!admin && (
+                    {!isAdmin && (
                         <>
                             {/* User Home */}
                             <li>
@@ -100,7 +101,7 @@ const Dashboard = () => {
                     )}
 
                     {/* Conditionally render menu items for admins */}
-                    {admin && (
+                    {isAdmin && (
                         <>
                             {/* Admin Home */}
                             <li>
