@@ -1,8 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import usepublicHook from "../hooks/usepublicHook";
+import useAxios from "../hooks/useAxios";
 
-
-
+const image = import.meta.env.VITE_imageBB
+const imageHost = `https://api.imgbb.com/1/upload?key=${image}`
 const AddItems = () => {
   const {
     register,
@@ -10,20 +12,38 @@ const AddItems = () => {
     formState: { errors },
     reset,
   } = useForm();
+  const axios = usepublicHook()
+  const axiosSecure =useAxios()
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    const priceAsInt = parseInt(data.price, 10);
+
     console.log("Form Data:", data);
-
     const formData = new FormData();
-    formData.append("foodName", data.foodName);
-    formData.append("category", data.category);
-    formData.append("price", data.price);
-    formData.append("recipeDetails", data.recipeDetails);
-    formData.append("image", data.image[0]); // First file from the FileList
+formData.append("image", data.image[0]);
+    const res = await axios.post(imageHost,formData,{
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+    })
 
-    for (let pair of formData.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
+console.log(res.data);
+if(res.data.success){
+    const menuItem ={
+        name : data.foodName,
+        category: data.category,
+        price: priceAsInt,
+        recipe:data.recipeDetails,
+        image: res.data.data.display_url
+
     }
+    const menuRes = await axiosSecure.post('/menu' , menuItem)
+    console.log(menuRes.data);
+}
+
+    
+
+    
 
     reset();
   };
