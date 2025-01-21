@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import useCart from "../../hooks/useCart";
 
@@ -23,7 +24,11 @@ const Cart = () => {
             <div className="flex justify-evenly my-5">
                 <h2 className="text-3xl">Items: {cart.length}</h2>
                 <h2 className="text-3xl">Total Price: ${totalPrice.toFixed(2)}</h2>
+               {
+                cart.length ? <Link to='/dashboard/payment'>
                 <button className="btn btn-primary">Pay</button>
+                </Link> :  <button disabled className="btn btn-primary">Pay</button>
+               }
             </div>
 
             {/* Cart Items Table */}
