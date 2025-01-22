@@ -11,14 +11,16 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const axios = useAxios();
-  const [cart] = useCart();
+  const [cart,refetch] = useCart();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   useEffect(() => {
-    axios.post("/create-payment-intent", { price: totalPrice }).then((res) => {
-      console.log(res.data.clientSecret);
-      setclientSecret(res.data.clientSecret);
-    });
+    if(totalPrice > 0){
+      axios.post("/create-payment-intent", { price: totalPrice }).then((res) => {
+        console.log(res.data.clientSecret);
+        setclientSecret(res.data.clientSecret);
+      });
+    }
   }, [axios, totalPrice]);
 
   const handleSubmit = async (event) => {
@@ -70,6 +72,7 @@ const CheckoutForm = () => {
       }
      const res = await axios.post('/payments',payment)
      console.log(res.data);
+     refetch()
     }
   }
   };
